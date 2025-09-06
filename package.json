@@ -1,0 +1,21 @@
+{
+  "name": "vscode-plugin-download",
+  "version": "1.0.0",
+  "description": "VSCode插件.vsix文件下载工具 - 自动生成和下载VSCode插件安装包",
+  "main": "index.js",
+  "bin": {
+    "vscode-plugin-download": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dl:roo": "node index.js download rooveterinaryinc roo-cline 3.27.0"
+  },
+  "keywords": ["vscode", "plugin", "download", "vsix", "extension"],
+  "author": "longmo",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "axios": "^1.6.0",
+    "chalk": "^4.1.2"
+  }
+}
