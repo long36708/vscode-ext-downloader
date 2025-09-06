@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { program } = require('commander');
-const axios = require('axios');
-const chalk = require('chalk');
+import fs from 'fs';
+import path from 'path';
+import { program } from 'commander';
+import axios from 'axios';
+import chalk from 'chalk';
 
 /**
  * 生成VSCode插件下载URL
@@ -13,30 +13,30 @@ const chalk = require('chalk');
  * @param {string} version - 版本号
  * @returns {string} 下载URL
  */
-function generateDownloadUrl(publisher, extensionName, version) {
+const generateDownloadUrl = (publisher, extensionName, version) => {
     return `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/${publisher}/vsextensions/${extensionName}/${version}/vspackage`;
-}
+};
 
 /**
  * 从插件页面URL解析插件信息
  * @param {string} url - VSCode插件市场URL
  * @returns {Promise<Object>} 插件信息对象
  */
-async function parseExtensionInfo(url) {
+const parseExtensionInfo = async (url) => {
     try {
         const response = await axios.get(url);
         const html = response.data;
         
         // 提取发布者名称
-        const publisherMatch = html.match(/"publisher":"([^"]+)"/);
+        const publisherMatch = html.match(/\"publisher\":\"([^\"]+)\"/);
         const publisher = publisherMatch ? publisherMatch[1] : null;
         
         // 提取插件名称
-        const extensionNameMatch = html.match(/"extensionName":"([^"]+)"/);
+        const extensionNameMatch = html.match(/\"extensionName\":\"([^\"]+)\"/);
         const extensionName = extensionNameMatch ? extensionNameMatch[1] : null;
         
         // 提取版本号
-        const versionMatch = html.match(/"version":"([^"]+)"/);
+        const versionMatch = html.match(/\"version\":\"([^\"]+)\"/);
         const version = versionMatch ? versionMatch[1] : null;
         
         if (!publisher || !extensionName || !version) {
@@ -47,14 +47,14 @@ async function parseExtensionInfo(url) {
     } catch (error) {
         throw new Error(`解析插件信息失败: ${error.message}`);
     }
-}
+};
 
 /**
  * 下载.vsix文件并显示进度
  * @param {string} downloadUrl - 下载URL
  * @param {string} outputPath - 输出路径
  */
-async function downloadVsixFile(downloadUrl, outputPath) {
+const downloadVsixFile = async (downloadUrl, outputPath) => {
     try {
         const response = await axios({
             method: 'GET',
@@ -99,20 +99,20 @@ async function downloadVsixFile(downloadUrl, outputPath) {
             throw new Error(`下载失败: ${error.message}`);
         }
     }
-}
+};
 
 /**
  * 格式化字节大小为可读格式
  * @param {number} bytes - 字节数
  * @returns {string} 格式化后的字符串
  */
-function formatBytes(bytes) {
+const formatBytes = (bytes) => {
     if (bytes === 0) return '0 B';
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
+};
 
 // 设置命令行参数
 program

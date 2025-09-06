@@ -1,10 +1,5 @@
 [
   {
-    "publisher": "maattdd",
-    "extension": "gitless",
-    "version": "11.7.2"
-  },
-  {
     "publisher": "rooveterinaryinc",
     "extension": "roo-cline",
     "version": "3.27.0"
