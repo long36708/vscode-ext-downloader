@@ -14,48 +14,68 @@
 ## 安装
 
 ```bash
-npm install -g .
+npm install -g vscode-ext-downloader
 ```
 
 或者直接使用npx：
 
 ```bash
-npx vscode-plugin-download [command]
+npx vscode-ext-downloader [command]
+```
+
+## 快捷别名
+
+安装后可以使用更短的命令 `vsdl`：
+
+```bash
+# 使用快捷别名
+vsdl generate maattdd gitless 11.7.2
+vsdl download maattdd gitless 11.7.2
+vsdl batch example-plugins.json
 ```
 
 ## 使用方法
+
+### 使用快捷别名 vsdl
+```bash
+vsdl generate <publisher> <extension> <version>
+vsdl download <publisher> <extension> <version>
+vsdl batch <file>
+```
+
+### 使用完整命令名
 
 ### 1. 生成下载链接
 
 ```bash
 # 基本用法
-vscode-plugin-download generate <publisher> <extension> <version>
+vscode-ext-downloader generate <publisher> <extension> <version>
 
 # 示例
-vscode-plugin-download generate maattdd gitless 11.7.2
+vscode-ext-downloader generate maattdd gitless 11.7.2
 ```
 
 ### 2. 从插件页面解析并生成链接
 
 ```bash
 # 从插件市场URL解析
-vscode-plugin-download parse <marketplace-url>
+vscode-ext-downloader parse <marketplace-url>
 
 # 示例
-vscode-plugin-download parse "https://marketplace.visualstudio.com/items?itemName=maattdd.gitless"
+vscode-ext-downloader parse "https://marketplace.visualstudio.com/items?itemName=maattdd.gitless"
 ```
 
 ### 3. 下载.vsix文件
 
 ```bash
 # 下载单个插件
-vscode-plugin-download download <publisher> <extension> <version>
+vscode-ext-downloader download <publisher> <extension> <version>
 
 # 指定输出目录
-vscode-plugin-download download maattdd gitless 11.7.2 -o ./my-plugins
+vscode-ext-downloader download maattdd gitless 11.7.2 -o ./my-plugins
 
 # 示例
-vscode-plugin-download download maattdd gitless 11.7.2
+vscode-ext-downloader download maattdd gitless 11.7.2
 ```
 
 下载过程中会显示实时进度条，包括：
@@ -90,7 +110,7 @@ vscode-plugin-download download maattdd gitless 11.7.2
 然后运行批量下载：
 
 ```bash
-vscode-plugin-download batch example-plugins.json
+vscode-ext-downloader batch example-plugins.json
 ```
 
 ## 进度显示和错误处理
