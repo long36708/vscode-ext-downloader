@@ -14,8 +14,10 @@
 ## 安装
 
 ```bash
-npm install -g vscode-ext-downloader
+npm install -g vscode-ext-downloader@latest
 ```
+
+**注意**: v1.0.0 和 v1.0.1 版本已被标记为弃用，请确保安装最新版本。
 
 或者直接使用npx：
 
