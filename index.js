@@ -166,7 +166,7 @@ program
             
             // 创建输出目录
             if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
+                fs.mkdirSync(outputDir, { recursive: true, mode: 0o755 });
             }
             
             console.log(chalk.yellow('开始下载...'));
@@ -189,12 +189,13 @@ program
     .option('-o, --output <path>', '输出目录', `${process.cwd()}/downloads`)
     .action(async (file, options) => {
         try {
-            const data = fs.readFileSync(file, 'utf8');
+            const configFile = path.resolve(file);
+            const data = fs.readFileSync(configFile, 'utf8');
             const plugins = JSON.parse(data);
             const outputDir = path.resolve(options.output);
             
             if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
+                fs.mkdirSync(outputDir, { recursive: true, mode: 0o755 });
             }
             
             console.log(chalk.yellow(`开始批量处理 ${plugins.length} 个插件...`));
