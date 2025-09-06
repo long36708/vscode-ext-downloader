@@ -50,7 +50,7 @@ async function parseExtensionInfo(url) {
 }
 
 /**
- * 下载.vsix文件
+ * 下载.vsix文件并显示进度
  * @param {string} downloadUrl - 下载URL
  * @param {string} outputPath - 输出路径
  */
@@ -62,16 +62,56 @@ async function downloadVsixFile(downloadUrl, outputPath) {
             responseType: 'stream'
         });
         
+        const totalSize = parseInt(response.headers['content-length'], 10);
+        let downloadedSize = 0;
+        let lastProgress = 0;
+        
         const writer = fs.createWriteStream(outputPath);
+        
+        // 监听数据流事件来显示进度
+        response.data.on('data', (chunk) => {
+            downloadedSize += chunk.length;
+            if (totalSize) {
+                const progress = Math.floor((downloadedSize / totalSize) * 100);
+                // 每10%更新一次进度，避免过于频繁的输出
+                if (progress >= lastProgress + 10 || progress === 100) {
+                    process.stdout.write(`\r下载进度: ${progress}% (${formatBytes(downloadedSize)}/${formatBytes(totalSize)})`);
+                    lastProgress = progress;
+                }
+            }
+        });
+        
         response.data.pipe(writer);
         
         return new Promise((resolve, reject) => {
-            writer.on('finish', resolve);
+            writer.on('finish', () => {
+                process.stdout.write('\n');
+                resolve();
+            });
             writer.on('error', reject);
         });
     } catch (error) {
-        throw new Error(`下载文件失败: ${error.message}`);
+        if (error.response) {
+            throw new Error(`下载失败: HTTP ${error.response.status} - ${error.response.statusText}`);
+        } else if (error.request) {
+            throw new Error('下载失败: 网络连接错误，请检查网络连接');
+        } else {
+            throw new Error(`下载失败: ${error.message}`);
+        }
     }
+}
+
+/**
+ * 格式化字节大小为可读格式
+ * @param {number} bytes - 字节数
+ * @returns {string} 格式化后的字符串
+ */
+function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
 // 设置命令行参数

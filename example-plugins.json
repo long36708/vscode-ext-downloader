@@ -10,8 +10,8 @@
     "version": "3.27.0"
   },
   {
-    "publisher": "ms-vscode",
-    "extension": "cpptools",
-    "version": "1.18.5"
+    "publisher": "kilocode",
+    "extension": "Kilo-Code",
+    "version": "4.91.0"
   }
 ]

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dl:roo": "node index.js download rooveterinaryinc roo-cline 3.27.0"
+    "dl:roo": "node index.js download rooveterinaryinc roo-cline 3.27.0",
+    "dl:Kilo-Code": "node index.js download kilocode Kilo-Code 4.91.0"
   },
   "keywords": ["vscode", "plugin", "download", "vsix", "extension"],
   "author": "longmo",
