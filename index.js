@@ -51,6 +51,19 @@ const parseExtensionInfo = async (url) => {
 };
 
 /**
+ * 格式化字节大小为可读格式
+ * @param {number} bytes - 字节数
+ * @returns {string} 格式化后的字符串
+ */
+const formatBytes = (bytes) => {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
+};
+
+/**
  * 下载.vsix文件并显示进度
  * @param {string} downloadUrl - 下载URL
  * @param {string} outputPath - 输出路径
@@ -104,19 +117,6 @@ const downloadVsixFile = async (downloadUrl, outputPath) => {
       throw new Error(`下载失败: ${error.message}`);
     }
   }
-};
-
-/**
- * 格式化字节大小为可读格式
- * @param {number} bytes - 字节数
- * @returns {string} 格式化后的字符串
- */
-const formatBytes = (bytes) => {
-  if (bytes === 0) return '0 B';
-  const k = 1024;
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 };
 
 // 设置命令行参数
