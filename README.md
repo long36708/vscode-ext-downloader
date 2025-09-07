@@ -39,6 +39,7 @@ vsdl batch example-plugins.json
 ## 使用方法
 
 ### 使用快捷别名 vsdl
+
 ```bash
 vsdl generate <publisher> <extension> <version>
 vsdl download <publisher> <extension> <version>
@@ -81,11 +82,13 @@ vscode-ext-downloader download maattdd gitless 11.7.2
 ```
 
 下载过程中会显示实时进度条，包括：
+
 - 下载百分比进度
 - 已下载大小/总大小
 - 友好的文件大小格式化显示
 
 **错误处理：**
+
 - 网络连接错误会提示检查网络
 - 404错误会显示具体的HTTP状态码
 - 其他错误会提供详细的错误信息
@@ -118,13 +121,17 @@ vscode-ext-downloader batch example-plugins.json
 ## 进度显示和错误处理
 
 ### 进度显示
+
 下载过程中会实时显示进度信息，包括：
+
 - 下载百分比（每10%更新一次）
 - 已下载文件大小和总大小
 - 自动格式化的文件大小（B/KB/MB/GB）
 
 ### 错误处理
+
 工具提供了详细的错误信息：
+
 - **HTTP错误**：显示具体的状态码和状态文本
 - **网络错误**：提示检查网络连接
 - **解析错误**：提供详细的错误消息
@@ -139,11 +146,13 @@ https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{发布者}
 ```
 
 例如：
+
 - 发布者：`maattdd`
-- 插件名：`gitless` 
+- 插件名：`gitless`
 - 版本号：`11.7.2`
 
 生成的下载链接：
+
 ```
 https://marketplace.visualstudio.com/_apis/public/gallery/publishers/maattdd/vsextensions/gitless/11.7.2/vspackage
 ```

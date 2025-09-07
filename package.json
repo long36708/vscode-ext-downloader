@@ -12,7 +12,11 @@
   "scripts": {
     "start": "node index.js",
     "dl:roo": "node index.js download rooveterinaryinc roo-cline 3.27.0",
-    "dl:Kilo-Code": "node index.js download kilocode Kilo-Code 4.91.0"
+    "dl:Kilo-Code": "node index.js download kilocode Kilo-Code 4.91.0",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "vscode",
@@ -24,8 +28,19 @@
   "author": "longmo",
   "license": "ISC",
   "dependencies": {
-    "commander": "^11.1.0",
     "axios": "^1.6.0",
-    "chalk": "^4.1.2"
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
+    "eslint-plugin-command": "^3.3.1",
+    "eslint-plugin-import-x": "^4.16.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "longmo-lint-configs": "^1.0.12",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14"
   }
 }
